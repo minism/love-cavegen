@@ -1,44 +1,61 @@
-require 'tlfres'
-require 'game'
 require 'math'
 require 'os'
+
+require 'leaf'
+leaf.import()
+tween = require 'tween'
 
 function love.load()
     -- Seed randomness
 	math.randomseed(os.time())
 	math.random() -- Dumbass OSX fix
+	
+	-- Load assets
+	img = loader.loadImages('img')
 
-    -- Setup video
-    TLfres.setScreen({
-        w=640,
-        h=480,
-        full=false, 
-        vsync=false,
-        aa=0}, 640, 480) 
-
-    state = game
-	state.load()
+	-- Generate new world
+	require 'world'
+	world = World:new()
+	world:generate()
+	
+	-- Setup camera
+	require 'guy'
+	camera.track(guy)
 end
 
 function love.update(dt)
-	state.update(dt)
+	-- Top level updates
+	world:update(dt)
+	guy:update(dt)
+	camera.update(dt)
 end
 
 function love.draw()
-    TLfres.transform()
-    love.graphics.setColor(255, 255, 255)
-	state.draw()
-    TLfres.letterbox(4, 3)
+	love.graphics.push()
+		-- Apply camera transformation
+		camera.apply()
+		world:draw()
+		guy:draw()
+	love.graphics.pop()
+	
+	-- Misc draws
+	console.draw()
 end 
 
 function love.keypressed(key, unicode)
-	state.keypressed(key, unicode)
+    if key == 'f1' then
+		love.graphics.toggleFullscreen()
+    end
 end
 
 function love.mousepressed(x, y, button)
-	state.mousepressed(x, y, button)
+	--
+end
+
+function love.mousereleased(x, y, button)
+	--
 end
 
 function love.quit()
-    state.quit()
+	--
 end

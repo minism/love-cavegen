@@ -1,15 +1,16 @@
 function love.conf(t)
 	-- Love settings
-	t.title = "Title" 		    -- The title of the window the game is in (string)
-	t.author = "Author"         -- The author of the game (string)
+	t.title = "Forest"	        -- The title of the window the game is in (string)
+	t.author = "Josh Bothun"    -- The author of the game (string)
 	t.identity = nil            -- The name of the save directory (string)
-	t.version = 0.1             -- The LÖVE version this game was made for (number)
+	t.version = 0.7             -- The LÖVE version this game was made for (number)
 	t.console = false           -- Attach a console (boolean, Windows only)
-	t.screen.width = 1024       -- The window width (number)
-	t.screen.height = 768	    -- The window height (number)
-	t.screen.fullscreen = false -- Enable fullscreen (boolean)
-	t.screen.vsync = true       -- Enable vertical sync (boolean)
-	t.screen.fsaa = 0           -- The number of FSAA-buffers (number)
+	t.release = false           -- Enable release mode (boolean)
+    t.screen.width = 800        -- The window width (number)
+    t.screen.height = 600       -- The window height (number)
+    t.screen.fullscreen = false -- Enable fullscreen (boolean)
+    t.screen.vsync = false      -- Enable vertical sync (boolean)
+    t.screen.fsaa = 0           -- The number of FSAA-buffers (number)
 	
 	-- Modules
 	t.modules.joystick = true   -- Enable the joystick module (boolean)
@@ -21,5 +22,9 @@ function love.conf(t)
 	t.modules.timer = true      -- Enable the timer module (boolean)
 	t.modules.mouse = true      -- Enable the mouse module (boolean)
 	t.modules.sound = true      -- Enable the sound module (boolean)
-	t.modules.physics = true    -- Enable the physics module (boolean)
+	t.modules.physics = false   -- Enable the physics module (boolean)
+	
+	-- Custom
+	DEBUG = true
+	VERSION = '0.0.1'
 end
