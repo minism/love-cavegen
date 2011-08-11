@@ -1,9 +1,11 @@
 require 'math'
 require 'os'
-
 require 'leaf'
 leaf.import()
 tween = require 'tween'
+
+require 'world'
+require 'guy'
 
 function love.load()
     -- Seed randomness
@@ -13,13 +15,14 @@ function love.load()
 	-- Load assets
 	img = loader.loadImages('img')
 
+    -- Setup console
+    console.color = {255, 100, 255}
+
 	-- Generate new world
-	require 'world'
 	world = World:new()
 	world:generate()
 	
 	-- Setup camera
-	require 'guy'
 	camera.track(guy)
 end
 
@@ -31,15 +34,12 @@ function love.update(dt)
 end
 
 function love.draw()
-	love.graphics.push()
-		-- Apply camera transformation
-		camera.apply()
-		world:draw()
-		guy:draw()
-	love.graphics.pop()
+    -- Camera draws
+    world:draw()
 	
-	-- Misc draws
+	-- Static position draws
 	console.draw()
+    love.graphics.print('fps: ' .. love.timer.getFPS(), love.graphics.getWidth() - 50, 10)
 end 
 
 function love.keypressed(key, unicode)
