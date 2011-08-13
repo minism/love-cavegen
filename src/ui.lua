@@ -52,7 +52,7 @@ local genbutton = leaf.Rect:new(uix, love.graphics.getHeight() - 200,
 function ui.load()
     addSlider('sources',        'Source Blocks',    1,   5,   1,   true)
     addSlider('miner_limit',    'Maximum Miners',   10,  2500,500, true)
-    addSlider('fork_chance',    'Fork Rate',        0,   0.3, 0.1, false)
+    addSlider('fork_chance',    'Fork Rate',        0,   0.2, 0.1, false)
 end
 
 function ui.update(dt)
