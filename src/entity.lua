@@ -1,6 +1,9 @@
 require 'leaf.object'
 require 'leaf.polygon'
 
+local Object = leaf.Object
+local Rect = leaf.Rect
+
 Entity = Object:extend('Entity')
 
 function Entity:init(w, h)
