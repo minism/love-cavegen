@@ -6,8 +6,8 @@ function love.conf(t)
 	t.version = 0.7             -- The LÖVE version this game was made for (number)
 	t.console = false           -- Attach a console (boolean, Windows only)
 	t.release = false           -- Enable release mode (boolean)
-    t.screen.width = 800        -- The window width (number)
-    t.screen.height = 600       -- The window height (number)
+    t.screen.width = 1024       -- The window width (number)
+    t.screen.height = 768       -- The window height (number)
     t.screen.fullscreen = false -- Enable fullscreen (boolean)
     t.screen.vsync = false      -- Enable vertical sync (boolean)
     t.screen.fsaa = 0           -- The number of FSAA-buffers (number)
@@ -26,5 +26,5 @@ function love.conf(t)
 	
 	-- Custom
 	DEBUG = true
-	VERSION = '0.0.2'
+	VERSION = '0.0.3'
 end

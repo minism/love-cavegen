@@ -3,7 +3,7 @@ require 'os'
 require 'leaf'
 console = leaf.console
 camera = leaf.camera
-tween = require 'tween'
+-- tween = require 'tween'
 
 local debugFlags = 
 {
@@ -27,7 +27,7 @@ local debugCommands =
                                 world:cycleRenderMode()
                             end},
     {'f4', 'generate world',function()
-                                world:generate()
+                                world:generate(ui.settings())
                             end},
     {'f11', 'fullscreen',   function()
                                 -- TODO: Fix this on windows? 
@@ -50,33 +50,42 @@ function love.load()
     -- Load modules
     require 'world'
     require 'guy'
+    require 'ui'
+
+    -- Setup ui
+    ui.load()
 
     -- Setup console
-    console.color = {255, 100, 255}
+    console.color = {150, 175, 225}
 
 	-- Generate new world
 	world = World:new()
-	world:generate()
+    world:generate()
 	
 	-- Setup camera
 	camera.track(guy)
 end
 
 function love.update(dt)
-	-- Top level updates
-	world:update(dt)
-	guy:update(dt)
+	-- Basic module updates
+    leaf.time.update(dt)
 	camera.update(dt)
+    ui.update(dt)
+
+    -- Game updates
+    world:update(dt)
 end
 
 function love.draw()
     -- Camera draws
     world:drawOverview()
 	
-	-- Static position draws
+	-- -- Static position draws
+    ui.draw()
 	console.draw()
     if debugFlags.fps then
-        love.graphics.print('fps: ' .. love.timer.getFPS(), love.graphics.getWidth() - 50, 10)
+        love.graphics.setColor(unpack(console.color))
+        love.graphics.print('fps: ' .. love.timer.getFPS(), love.graphics.getWidth() - 100, 10)
     end
 end 
 
@@ -92,11 +101,13 @@ function love.keypressed(key, unicode)
 end
 
 function love.mousepressed(x, y, button)
-	--
+    world:mousepressed(x, y, button)
+	ui.mousepressed(x, y, button)
 end
 
 function love.mousereleased(x, y, button)
-	--
+    world:mousereleased(x, y, button)
+	ui.mousereleased(x, y, button)
 end
 
 function love.quit()
